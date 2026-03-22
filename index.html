@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mobilis Works — Policy innovation. Economic competitiveness. Civic capacity. Strategy and implementation practice based in East Lansing, Michigan.">
+<title>Mobilis Works LLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2E5090;
+    --blue-light: #3d6ab8;
+    --navy: #1A1A2E;
+    --off-white: #FAFAF8;
+    --warm-gray: #F2F1EE;
+    --text: #333340;
+    --text-light: #6B6B78;
+    --border: #E0DFD9;
+    --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    --sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: var(--sans);
+    color: var(--text);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* --- NAV --- */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+  nav.scrolled {
+    border-bottom-color: var(--border);
+  }
+  .nav-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 16px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo svg {
+    height: 36px;
+    width: auto;
+    display: block;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  .nav-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--navy);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+  }
+
+  /* --- HERO --- */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.055;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* shift up to center on MOBILIS row, not WORKS */
+    padding-bottom: 56px;
+    pointer-events: none;
+  }
+  .hero-bg svg {
+    width: min(33vw, 300px);
+    height: auto;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 88px 40px 32px;
+    max-width: 780px;
+  }
+  .hero-logo {
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  }
+  .hero-logo svg {
+    height: 200px;
+    width: auto;
+    display: inline-block;
+  }
+  .hero-tagline {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    font-weight: 400;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+  }
+  .hero-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--blue);
+    margin: 14px auto;
+    opacity: 0;
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+  }
+
+  /* --- SECTIONS --- */
+  section {
+    padding: 100px 40px;
+  }
+  .section-inner {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 32px;
+  }
+  .section-body {
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: var(--text);
+    font-weight: 300;
+  }
+  .section-body p + p {
+    margin-top: 20px;
+  }
+
+  /* --- ABOUT --- */
+  #about {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* --- APPROACH --- */
+  #approach {
+    background: #fff;
+  }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 48px;
+  }
+  .approach-item {
+    padding: 12px 0;
+  }
+  .approach-item:last-child {
+  }
+  .approach-keyword {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .approach-keyword .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    opacity: 0.4;
+    flex-shrink: 0;
+    position: relative;
+    top: -2px;
+  }
+  .approach-desc {
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: var(--text);
+    font-weight: 300;
+    padding-left: 18px;
+  }
+
+  /* --- FOUNDER --- */
+  #founder {
+    background: var(--off-white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* --- CONTACT --- */
+  #contact {
+    background: var(--navy);
+    color: #fff;
+    text-align: center;
+    padding: 100px 40px;
+  }
+  #contact .section-inner {
+    max-width: 600px;
+  }
+  .contact-compass {
+    margin-bottom: 40px;
+    opacity: 0.15;
+  }
+  .contact-compass svg {
+    width: 48px;
+    height: 48px;
+  }
+  #contact .section-heading {
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 20px;
+  }
+  .contact-sub {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 40px;
+    line-height: 1.6;
+  }
+  .contact-btn {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 16px 44px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .contact-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.5);
+  }
+  .contact-location {
+    margin-top: 48px;
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* --- FOOTER --- */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 40px;
+    text-align: center;
+  }
+  footer p {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* --- ANIMATIONS --- */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gentleBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 768px) {
+    .nav-inner { padding: 14px 24px; }
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      padding: 20px 24px 28px;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-mobile-toggle { display: block; }
+
+    section { padding: 72px 24px; }
+    .hero-content { padding: 76px 24px 28px; }
+    .hero-logo svg { height: 140px; }
+    #contact { padding: 72px 24px; }
+    footer { padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo" aria-label="Mobilis Works home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g transform="translate(50, 50)">
+          <circle cx="0" cy="0" r="42" fill="none" stroke="#2E5090" stroke-width="5.5"/>
+          <polygon points="0,-40 7.5,-7.5 0,0 -7.5,-7.5" fill="#2E5090"/>
+          <polygon points="0,40 7.5,7.5 0,0 -7.5,7.5" fill="#2E5090"/>
+          <polygon points="-40,0 -7.5,-7.5 0,0 -7.5,7.5" fill="#2E5090"/>
+          <polygon points="40,0 7.5,-7.5 0,0 7.5,7.5" fill="#2E5090"/>
+          <polygon points="0,-40 3.8,-7.5 0,0 -3.8,-7.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="0,40 3.8,7.5 0,0 -1.8,7.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="-40,0 -7.5,-3.8 0,0 -7.5,3.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="40,0 7.5,-3.8 0,0 7.5,3.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+        </g>
+      </svg>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#founder">Principal</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <g transform="translate(50, 50)">
+        <circle cx="0" cy="0" r="42" fill="none" stroke="#2E5090" stroke-width="2"/>
+        <polygon points="0,-40 7.5,-7.5 0,0 -7.5,-7.5" fill="#2E5090"/>
+        <polygon points="0,40 7.5,7.5 0,0 -7.5,7.5" fill="#2E5090"/>
+        <polygon points="-40,0 -7.5,-7.5 0,0 -7.5,7.5" fill="#2E5090"/>
+        <polygon points="40,0 7.5,-7.5 0,0 7.5,7.5" fill="#2E5090"/>
+        <polygon points="0,-40 3.8,-7.5 0,0 -3.8,-7.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+        <polygon points="0,40 3.8,7.5 0,0 -3.8,7.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+        <polygon points="-40,0 -7.5,-3.8 0,0 -7.5,3.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+        <polygon points="40,0 7.5,-3.8 0,0 7.5,3.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120">
+        <g transform="translate(200, 55)">
+          <text x="-148" y="0" text-anchor="start" font-size="48" font-family="Georgia, serif" font-weight="700" letter-spacing="2px" fill="#2E5090">M</text>
+          <g transform="translate(-78, -15)">
+            <circle cx="0" cy="0" r="19" fill="none" stroke="#2E5090" stroke-width="2.5"/>
+            <polygon points="0,-18 3.5,-3.5 0,0 -3.5,-3.5" fill="#2E5090"/>
+            <polygon points="0,18 3.5,3.5 0,0 -3.5,3.5" fill="#2E5090"/>
+            <polygon points="-18,0 -3.5,-3.5 0,0 -3.5,3.5" fill="#2E5090"/>
+            <polygon points="18,0 3.5,-3.5 0,0 3.5,3.5" fill="#2E5090"/>
+            <polygon points="0,-18 1.8,-3.5 0,0 -1.8,-3.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+            <polygon points="0,18 1.8,3.5 0,0 -1.8,3.5" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+            <polygon points="-18,0 -3.5,-1.8 0,0 -3.5,1.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+            <polygon points="18,0 3.5,-1.8 0,0 3.5,1.8" fill="#2E5090" opacity="0.4" transform="rotate(45)"/>
+          </g>
+          <text x="-55" y="0" text-anchor="start" font-size="48" font-family="Georgia, serif" font-weight="700" letter-spacing="2px" fill="#2E5090">BILIS</text>
+          <text x="4" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="20" font-weight="700" letter-spacing="10px" fill="#1A1A2E">WORKS</text>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Policy innovation. Economic competitiveness. Civic capacity.</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner reveal">
+    <span class="section-label">About</span>
+    <h2 class="section-heading">Strategy that connects priorities to&nbsp;impact.</h2>
+    <div class="section-body">
+      <p>Mobilis Works helps organizations design, launch, and implement strategic initiatives. We focus on the gap between statewide or national priorities and community-level impact — making sure that capital, programs, and policy actually land where they're intended and produce lasting results.</p>
+      <p>We work at the intersection of public policy and private investment, on problems that are too complex for any single actor but too important to leave unaddressed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="section-inner reveal">
+    <span class="section-label">Approach</span>
+    <h2 class="section-heading">Where public and private interests&nbsp;intersect.</h2>
+    <div class="section-body">
+      <p>We work best on problems where stakeholders need to be aligned and where the hard part isn't knowing what to do — but figuring out how to get it done. Our work takes three forms:</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-item reveal">
+        <div class="approach-keyword"><span class="dot"></span>Advise</div>
+        <p class="approach-desc">We develop strategy that connects big-picture priorities to conditions on the ground.</p>
+      </div>
+      <div class="approach-item reveal">
+        <div class="approach-keyword"><span class="dot"></span>Align</div>
+        <p class="approach-desc">We build coalitions and shared agendas across the sectors, jurisdictions, and institutions that need to move together.</p>
+      </div>
+      <div class="approach-item reveal">
+        <div class="approach-keyword"><span class="dot"></span>Activate</div>
+        <p class="approach-desc">We stand up new programs from concept through implementation — because strategy is only valuable if it gets built.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+  <div class="section-inner reveal">
+    <span class="section-label">Principal</span>
+    <h2 class="section-heading">Jonathan Smith</h2>
+    <div class="section-body">
+      <p>Jonathan Smith is the founder and principal of Mobilis Works LLC, a strategy and implementation practice focused on policy innovation, economic competitiveness, and civic capacity.</p>
+      <p>He most recently served in Governor Whitmer's Administration, where his work focused on guiding policy initiatives from design through implementation. His career spans senior roles in state government, on Capitol Hill, and in the private sector, including work in economic development policy, manufacturing strategy, and emerging technology.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-compass">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g transform="translate(50, 50)">
+          <circle cx="0" cy="0" r="42" fill="none" stroke="#fff" stroke-width="5.5"/>
+          <polygon points="0,-40 7.5,-7.5 0,0 -7.5,-7.5" fill="#fff"/>
+          <polygon points="0,40 7.5,7.5 0,0 -7.5,7.5" fill="#fff"/>
+          <polygon points="-40,0 -7.5,-7.5 0,0 -7.5,7.5" fill="#fff"/>
+          <polygon points="40,0 7.5,-7.5 0,0 7.5,7.5" fill="#fff"/>
+          <polygon points="0,-40 3.8,-7.5 0,0 -3.8,-7.5" fill="#fff" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="0,40 3.8,7.5 0,0 -3.8,7.5" fill="#fff" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="-40,0 -7.5,-3.8 0,0 -7.5,3.8" fill="#fff" opacity="0.4" transform="rotate(45)"/>
+          <polygon points="40,0 7.5,-3.8 0,0 7.5,3.8" fill="#fff" opacity="0.4" transform="rotate(45)"/>
+        </g>
+      </svg>
+    </div>
+    <h2 class="section-heading reveal">Let's work together.</h2>
+    <div class="reveal">
+      <a href="mailto:hello@mobilisworks.com" class="contact-btn">Get in Touch</a>
+    </div>
+    <p class="contact-location reveal">East Lansing, Michigan</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Mobilis Works LLC. All rights reserved.</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
